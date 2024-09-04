@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "189880866528",
+    "project_id": "gipy-e9067",
+    "storage_bucket": "gipy-e9067.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189880866528:android:f80b7686a8b7f143a9e285",
+        "android_client_info": {
+          "package_name": "com.example.gipy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiVvP6sjPn8c7LNKwkXGXQo4Mv2r4QfhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
