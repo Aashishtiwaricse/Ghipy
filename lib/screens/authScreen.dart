@@ -30,27 +30,20 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     }
   }
+void _submitAuthForm() async {
+  final isValid = _formKey.currentState?.validate();
+  if (isValid != true) {
+    return;
+  }
 
-  void _submitAuthForm() async {
-    final isValid = _formKey.currentState?.validate();
-    if (isValid != true) {
-      return;
-    }
-
-    try {
-      if (_isLogin) {
-        await _auth.signInWithEmailAndPassword(
-            email: _email, password: _password);
-      } else {
-        await _auth.createUserWithEmailAndPassword(
-            email: _email, password: _password);
-      }
+  try {
+    if (_isLogin) {
+      await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(_isLogin
-              ? 'Logged in successfully!'
-              : 'Account created successfully!'),
+          content: Text('Logged in successfully!'),
           backgroundColor: Colors.green,
         ),
       );
@@ -60,17 +53,74 @@ class _AuthScreenState extends State<AuthScreen> {
           MaterialPageRoute(builder: (context) => GifSearchScreen()),
         );
       });
-    } catch (e) {
-      print(e);
+    } else {
+      await _auth.createUserWithEmailAndPassword(
+          email: _email, password: _password);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('An error occurred. Please try again.'),
-          backgroundColor: Colors.red,
+          content: Text('Account created successfully! Please log in.'),
+          backgroundColor: Colors.green,
         ),
       );
+
+      
+      setState(() {
+        _isLogin = true; 
+      });
     }
+  } catch (e) {
+    print(e);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('An error occurred. Please try again.'),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
+}
+
+  // void _submitAuthForm() async {
+  //   final isValid = _formKey.currentState?.validate();
+  //   if (isValid != true) {
+  //     return;
+  //   }
+
+  //   try {
+  //     if (_isLogin) {
+  //       await _auth.signInWithEmailAndPassword(
+  //           email: _email, password: _password);
+  //     } else {
+  //       await _auth.createUserWithEmailAndPassword(
+  //           email: _email, password: _password);
+  //     }
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(_isLogin
+  //             ? 'Logged in successfully!'
+  //             : 'Account created successfully!'),
+  //         backgroundColor: Colors.green,
+  //       ),
+  //     );
+
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (context) => GifSearchScreen()),
+  //       );
+  //     });
+  //   } catch (e) {
+  //     print(e);
+
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('An error occurred. Please try again.'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
